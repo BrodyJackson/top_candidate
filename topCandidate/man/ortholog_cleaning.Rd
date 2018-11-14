@@ -4,7 +4,8 @@
 \alias{ortholog_cleaning}
 \title{ortholog_cleaning}
 \usage{
-ortholog_cleaning(species_one_tcontigs, species_two_tcontigs, minimum)
+ortholog_cleaning(species_one_tcontigs, species_two_tcontigs, minimum,
+  ortho)
 }
 \arguments{
 \item{species_one_tcontigs}{contig data from species one}
@@ -12,6 +13,8 @@ ortholog_cleaning(species_one_tcontigs, species_two_tcontigs, minimum)
 \item{species_two_tcontigs}{contig data from species two}
 
 \item{minimum}{the minimum number of SNP's needed for a gene}
+
+\item{one_to_one_orthologs}{Data frame representing the one to one orthologs of the two species}
 }
 \value{
 returns the list of orthlogs that meet conditions and are in both species

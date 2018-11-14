@@ -22,10 +22,19 @@ the_quantiles <- c (0.001,0.005,0.01,0.05)
 
 binom_cuts <- c(0.99,0.999,0.9999,0.99999,0.999999,0.9999999,0.99999999,0.999999999)
 
-pdf ("plot_top_candidate_tests.pdf")
+top_candidates <- find_top_candidate(pine, spruce, cleaned_ortho, the_quantiles, binom_cuts)
 
-for (i in 1:length (the_quantiles)){
-  find_top_cand(pine, spruce, cleaned_ortho, the_quantiles, binom_cuts)
-}
+top_candidate_overlap <- top_candidates[[1]]
+top_candidates_species_one <- top_candidates[[2]]
+top_candidates_species_two <- top_candidates[[3]]
 
 
+#calculate the hypergeometric statistics for one case (stephyper):
+
+number_genes <- nrow (ortho_in_both) #total number of genes that can be considered as having been tested 
+number_pine <- num_pin[3,3]
+number_spruce <- num_spr[3,3]
+number_overlap <- overlap[3,3]
+
+#calculate the probability of getting number_overlap or more
+sum(dhyper((number_overlap:number_pine),number_pine,(number_genes - number_pine),number_spruce))
