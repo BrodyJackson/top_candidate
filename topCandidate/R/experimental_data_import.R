@@ -29,7 +29,7 @@ experimental_data_import <- function(overallInfo = NULL, get_only_annotated = TR
     if(is.null(annotatedColumn)){
       stop("Column to annotate values to must also be supplied if get_only_annotated == TRUE")
     }
-    columnLocation <- which( colnames(all_pine)==annotatedColumn)
+    columnLocation <- which( colnames(species_data)==annotatedColumn)
     species_annotated <- species_data[grep("comp",species_data[[columnLocation]]),]
     returnList <- list(species_data, species_annotated)
   }
