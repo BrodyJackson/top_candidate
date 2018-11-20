@@ -26,5 +26,8 @@ Then returns the list representing the ortologs meeting this criteria that are i
 }
 \examples{
 ortholog_cleaning(spruce_tcontig, pine_tcontig, 3)
+
+pass name of column with the indicator variable as opposed to the tcontig, to make more general 
+
 }
 \keyword{clean}

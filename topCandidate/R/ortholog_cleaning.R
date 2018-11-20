@@ -12,6 +12,9 @@
 #' @export
 #' @examples
 #' ortholog_cleaning(spruce_tcontig, pine_tcontig, 3)
+#' 
+#' pass name of column with the indicator variable as opposed to the tcontig, to make more general 
+#' 
 
 ortholog_cleaning <- function(species_one_tcontigs, species_two_tcontigs, minimum, ortho){
   #get the unique names of each of the genes in each species

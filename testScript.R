@@ -1,23 +1,29 @@
 
+##Script showiing example package usage
+##seperate top candidate into each species, then allow a compare function 
+##specify outliers as upper or lower
+## fst vs p value 
 
 install("topCandidate")
 library(topCandidate)
 
-dataList <- ortholog_import("all_orthologs_pine_spruce.txt","one_to_one_orthologs.txt")
-allOrthologs <- data.frame(dataList[[1]])
-oneToOne <- data.frame(dataList[[2]])
 
-pine <- species_data_import("all_pine_data_pvalues.txt", TRUE)
+##read in correspondence between pine and spruce orthologs, including both one-to-one and multi-to one correspondences
+allOrthologs <- read.table ("all_orthologs_pine_spruce.txt",T)
+## read in one-to-one orthologs only:
+oneToOne  <- read.table ("one_to_one_orthologs.txt", T)
+
+pine <- experimental_data_import("all_pine_data_pvalues.txt", TRUE, "tcontig", "&")
 overall_pine <- data.frame(pine[[1]])
 pine_tcontig <- data.frame(pine[[2]])
 
-spruce <- species_data_import("all_spruce_data_pvalues.txt", TRUE)
+spruce <- experimental_data_import("all_spruce_data_pvalues.txt", TRUE, "tcontig", "&")
 overall_spruce <- data.frame(spruce[[1]])
 spruce_tcontig <- data.frame(spruce[[2]])
 
 cleaned_ortho <- ortholog_cleaning(pine_tcontig, spruce_tcontig, 3, oneToOne)
 
-
+##allows changing of quantiles and binomial cuts
 the_quantiles <- c (0.001,0.005,0.01,0.05)
 
 binom_cuts <- c(0.99,0.999,0.9999,0.99999,0.999999,0.9999999,0.99999999,0.999999999)
