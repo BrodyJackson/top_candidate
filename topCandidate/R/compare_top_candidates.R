@@ -45,7 +45,7 @@ compare_top_candidates <- function(species_one_candidates = NULL ,species_two_ca
     
     
     sub_good_species_two <- species_two_candidates[[i]]
-    sub_good_species_one <- merge (sub_good_species_two,orthologs,by.x = "names.snps_count2.",by.y = species_two_name, all.x = T) #many of the rows do not have an ortholog identified in the other species, so there is an "NA" in the 4th column
+    sub_good_species_two <- merge (sub_good_species_two,orthologs,by.x = "names.snps_count2.",by.y = species_two_name, all.x = T) #many of the rows do not have an ortholog identified in the other species, so there is an "NA" in the 4th column
     
     totsnp1 <- sum (sub_good_species_two$snps_count2)
     totout1 <- sum (sub_good_species_two$outliers_count2)
