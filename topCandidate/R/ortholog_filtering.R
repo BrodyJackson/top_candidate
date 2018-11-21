@@ -20,16 +20,16 @@ ortholog_filtering <- function(species_data = NULL, minimum = 3, columnName = NU
   if(is.null(columnName)){
     stop("Column of values to examine must be supplied")
   }
-  if(is.null(speciesData)){
+  if(is.null(species_data)){
     stop("Data to examine must be supplied")
   }
   
   columnLocation <- which( colnames(species_data)==columnName)
   #get the unique values of each of the column specified in input species
-  values <- unique (as.character (species_one_tcontigs[[columnLocation]]))
+  values <- unique (as.character (species_data[[columnLocation]]))
   
   #with at least X occurences of test value:
-  all <- table (as.character (species_one_tcontigs[[columnLocation]]))
+  all <- table (as.character (species_data[[columnLocation]]))
   numberFound <- all[all >= minimum]
   filteredValues <- unique (names(numberFound))
   

@@ -1,7 +1,7 @@
 install.packages("devtools")
 library("devtools")
 library(roxygen2)
-create_package("top_candidate")
+create_package("topCandidateTest")
 document()
 
 ?ortholog_cleaning
