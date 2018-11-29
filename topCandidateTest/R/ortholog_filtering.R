@@ -6,7 +6,7 @@
 #' @param species_data data to evaluate. For example, this could be the contigs present in a species. Defaults to NULL
 #' @param minimum the minimum number of occurences a value needs to have in this data to be included. For example, number of SNP's needed for a gene. Defaults to 3
 #' @param columnName the column name which has the values to evaluate. For example, this could be the column of contigs. Defaults to NULL
-#' @keywords 
+#' @keywords ortholog
 #' @return returns the list of orthlogs that meet conditions 
 #' @export
 #' @examples

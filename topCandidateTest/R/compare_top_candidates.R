@@ -1,4 +1,4 @@
-#' find_top_candidates
+#' compare_top_candidates
 #'
 #' 
 #' @param species_one_candidates list containing data frames holding top candidate values for various quantiles of species one. Defaults to NULL

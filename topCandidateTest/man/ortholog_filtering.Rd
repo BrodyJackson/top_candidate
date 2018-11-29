@@ -28,3 +28,4 @@ ortholog_filtering(pine_tcontig, 3, "tcontig")
 pass name of column with the indicator variable as opposed to the tcontig, to make more general 
 
 }
+\keyword{ortholog}
