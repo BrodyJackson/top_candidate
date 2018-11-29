@@ -11,7 +11,7 @@
 #' @keywords topcandidate
 #' @export
 #' @examples
-#' find_top_candidates(pine, quantiles, tcontig, "MCMT")
+#' find_top_candidates(pine, the_quantiles, binom_cuts, "tcontig", "MCMT", "pine_top_candidates.pdf")
 
 find_top_candidates <- function(species_data = NULL ,the_quantiles, binom, candidateColumnName = NULL, testVariable = NULL, plotFileName = NULL){
   

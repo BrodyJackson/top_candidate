@@ -14,7 +14,7 @@
 #' @keywords compare
 #' @export
 #' @examples
-#' find_top_candidates(pine, quantiles, tcontig, "MCMT")
+#' compare_top_candidatescompare_top_candidates(pine_outliers, spruce_outliers, the_quantiles, binom_cuts, oneToOne, ortho_in_both, "pine", "spruce", "top_candidates_compared.pdf")
 
 compare_top_candidates <- function(species_one_candidates = NULL ,species_two_candidates = NULL, the_quantiles, binom, orthologs, ortho_in_both, species_one_name = "pine", species_two_name = "spruce", plotFileName = NULL){
   

@@ -4,21 +4,20 @@
 #' @param overall_info required table formatted data containing all the experimental info about a species. Defaults to NULL
 #' @param get_only_annotated will get only the SNP's annotated to a gene if true, defaults to TRUE
 #' @param annotatedColumn the column which you want to ensure that each value is annotated to. As an example this could be the contig column if you only wanted SNPS annotated to a gene. Defaults to NULL
-#' @param commentChar the character which indicates comments in the input data frame, defaults to &
 #' @keywords species
 #' @export
 #' @examples
-#' experimental_data_import("all_pine_data_pvalues.txt", TRUE)
+#' experimental_data_import("all_spruce_data_pvalues.txt", TRUE, "tcontig")
 #' 
 #' 
 
-experimental_data_import <- function(overallInfo = NULL, get_only_annotated = TRUE, annotatedColumn = NULL, commentChar = "&"){
+experimental_data_import <- function(overallInfo = NULL, get_only_annotated = TRUE, annotatedColumn = NULL){
   #read in species data on p-values for each environmental test:
   if(is.null(overallInfo)){
     stop("Experimental info must be provided")
   }
   
-  species_data <- read.table (overallInfo, T, comment.char = commentChar)
+  species_data <- read.table (overallInfo, T, comment.char = "&")
   
   for (i in 33:54){
     species_data[,i] <- as.numeric(as.character (species_data[,i]))
