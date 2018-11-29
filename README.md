@@ -39,11 +39,11 @@ install_github('topCandidateTest', 'github_BrodyJackson')
 <a name="experimentaldataimport"></a>
 ### experimental_data_import
 ###### Allows for input of experimental info about a species
-  -  `Parameter`:  **overall_info** 
+  -  `Parameter`:  **overall_info** </br> 
      required table formatted data containing all the experimental info about a species. Defaults to NULL
-   - `Parameter`: **get_only_annotated**
+   - `Parameter`: **get_only_annotated** </br>
      will get only the SNP's annotated to a gene if true, defaults to TRUE
-  - `Parameter`: **annotatedColumn**
+  - `Parameter`: **annotatedColumn** </br>
      the column which you want to ensure that each value is annotated to. As an example this could be the contig column if you only wanted SNPS annotated to a gene. Defaults to NULL
   - `Keywords`: **species** 
   - `Examples`:
@@ -53,13 +53,13 @@ install_github('topCandidateTest', 'github_BrodyJackson')
 <a name="orthologfiltering"></a>
 ### ortholog_filtering
 ###### Function to filter data for species entered
-  -  `Description`:
+  -  `Description`: </br>
      will get the unique names of value asked for, such as genes,in species then find which ones have above a certain number of occurances
-   - `Parameter`: **species_data**
+   - `Parameter`: **species_data** </br>
      data to evaluate. For example, this could be the contigs present in a species. Defaults to NULL
-  - `Parameter`: **minimum**
+  - `Parameter`: **minimum** </br>
      the minimum number of occurences a value needs to have in this data to be included. For example, number of SNP's needed for a gene. Defaults to 3
-  - `Parameter`: **columnName**
+  - `Parameter`: **columnName** </br>
      the column name which has the values to evaluate. For example, this could be the column of contigs. Defaults to NULL
   - `Keywords`: **ortholog** 
   - `Examples`: 
@@ -69,20 +69,20 @@ install_github('topCandidateTest', 'github_BrodyJackson')
 <a name="findcandidates"></a>
 ### find_top_candidates
 ###### Function to filter data for species entered
-  -  `Description`
-   - `Parameter`: **species**
+  -  `Description`: </br>
+   - `Parameter`: **species** </br>
      data list containing overall data in first position and orthologs data to evaluate in second. These values are previously found using experimental_data_import method. Defaults to NULL
-  - `Parameter`: **quantiles**
+  - `Parameter`: **quantiles** </br>
      the quantiles being tested
-  - `Parameter`: **binom**
+  - `Parameter`: **binom** </br>
      the binomial cuts to test
-  - `Parameter`: **candidateColumnName**
+  - `Parameter`: **candidateColumnName** </br>
      the name of the column containing all the candidates that will be tested. Defaults to NULL
-  - `Parameter`: **testVariable**
+  - `Parameter`: **testVariable** </br>
      the column name holding the results for a certain test. For example, this could be the results for a certain environmental location
-  - `Parameter`: **plotFileName**
+  - `Parameter`: **plotFileName** </br>
      the name of the pdf file you want to plot in, if NULL then top candidates will not be plotted, defaults to null
-  - `Return`: 
+  - `Return`: </br>
      returns a list containing data frames holding the top candidate results for each quantile
   - `Keywords`: **topCandidate** 
   - `Examples`: 
@@ -94,26 +94,26 @@ install_github('topCandidateTest', 'github_BrodyJackson')
 <a name="compare"></a>
 ### compare_top_candidates
 ###### Function to filter data for species entered
-  -  `Description`
-   - `Parameter`: **species_one_candidates**
+  -  `Description`: </br>
+   - `Parameter`: **species_one_candidates** </br>
      candidates list containing data frames holding top candidate values for various quantiles of species one. Defaults to NULL
-  - `Parameter`: **species_two_candidates**
+  - `Parameter`: **species_two_candidates** </br>
      list containing data frames holding top candidate values for various quantiles of species two. Defaults to NULL
-  - `Parameter`: **quantiles**
+  - `Parameter`: **quantiles** </br>
      the quantiles being tested
-  - `Parameter`: **binom**
+  - `Parameter`: **binom** </br>
      the binomial cuts to test
-  - `Parameter`: **orthologs**
+  - `Parameter`: **orthologs** </br>
      data frame containing the one to one orthologs of the value being tested for the two species
-  - `Parameter`: **ortho_in_both**
+  - `Parameter`: **ortho_in_both** </br>
      data frame containing the orthologs that are present in both the species being tests
-  - `Parameter`: **species_one_name**
+  - `Parameter`: **species_one_name** </br>
      the name of species one (that is being used as column title)
-   - `Parameter`: **species_two_name**
+   - `Parameter`: **species_two_name** </br>
      the name of species two (that is being used as column title)
-   - `Parameter`: **plotFileName**
+   - `Parameter`: **plotFileName** </br>
      the name of the pdf file you want to plot in, if NULL then top candidates will not be plotted, defaults to null
-  - `Return`: 
+  - `Return`: </br> 
      returns the probability of getting number_overlap or more top candidates
   - `Keywords`: **compare** 
   - `Examples`: 
