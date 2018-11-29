@@ -1,6 +1,6 @@
 #' ortholog_filtering
 #'
-#' Function to clean data for species entered
+#' Function to filter data for species entered
 #' will get the unique names of value asked for, such as genes,in species then find which ones have above a certain number of occurances
 #' Then returns a list of these values for the data provided 
 #' @param species_data data to evaluate. For example, this could be the contigs present in a species. Defaults to NULL

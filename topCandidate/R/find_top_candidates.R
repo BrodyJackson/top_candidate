@@ -6,13 +6,14 @@
 #' @param binom the binomial cuts to test 
 #' @param candidateColumnName the name of the column containing all the candidates that will be tested. Defaults to NULL
 #' @param testVariable the column name holding the results for a certain test. For example, this could be the results for a certain environmental location
+#' @param plotFileName the name of the pdf file you want to plot in, if NULL then top candidates will not be plotted, defaults to null
 #' @return returns a list containing data frames holding the top candidate results for each quantile 
 #' @keywords topcandidate
 #' @export
 #' @examples
 #' find_top_candidates(pine, quantiles, tcontig, "MCMT")
 
-find_top_candidates <- function(species_data = NULL ,the_quantiles, binom, candidateColumnName = NULL, testVariable = NULL){
+find_top_candidates <- function(species_data = NULL ,the_quantiles, binom, candidateColumnName = NULL, testVariable = NULL, plotFileName = NULL){
   
   if(is.null(candidateColumnName)){
     stop("Column name of candidates must be supplied")
@@ -30,13 +31,15 @@ find_top_candidates <- function(species_data = NULL ,the_quantiles, binom, candi
   
   num_found <- array (NA, c (length (the_quantiles),length (binom)))
   
-  pdf ("species_plot_top_candidate.pdf")
-
+  if(!is.null(plotFileName)){
+    pdf (plotFileName)
+  }
+  
   for (i in 1:length (the_quantiles)){
     
     the_quantile <- the_quantiles[i]
     
-    #PINE: calculate the quantile to call outliers over all environmental variables. This somewhat arbitrary choice allows some environmental variables to have more outliers than others, based on the relative strength of the p-values
+    #calculate the quantile to call outliers over all environmental variables. This somewhat arbitrary choice allows some environmental variables to have more outliers than others, based on the relative strength of the p-values
     quantile1 <- quantile (species_data[[1]][,33:54], the_quantile,na.rm = T)	#STEP2
     
     
@@ -61,12 +64,14 @@ find_top_candidates <- function(species_data = NULL ,the_quantiles, binom, candi
     totout1 <- sum (sub_good$outliers_count2)
     expected <- totout1 / totsnp1 #expected number of outliers per SNP, based on the total number of outliers and the total number of SNPs in the genes that have at least one outlier. Other choices are possible here.
     
-    for (j in 1:length (binom)){
-      par (mfcol = c (2,1))
-      par (mar = c (5,5,5,5))
-      plot (sub_good$snps_count2,sub_good$outliers_count2, xlab = "number of SNPs", ylab = "number of outliers", main = paste ("quantile = ", the_quantiles[i],"  binom_cut = ",binom[j]),  cex = 0.5)
-      points (1:(max(sub_good$snps_count2)+10),qbinom(binom[j],1:(max(sub_good$snps_count2)+10), expected), type = "l", col = "red")
-    }	
+    if(!is.null(plotFileName)){
+      for (j in 1:length (binom)){
+        par (mfcol = c (2,1))
+        par (mar = c (5,5,5,5))
+        plot (sub_good$snps_count2,sub_good$outliers_count2, xlab = "number of SNPs", ylab = "number of outliers", main = paste ("quantile = ", the_quantiles[i],"  binom_cut = ",binom[j]),  cex = 0.5)
+        points (1:(max(sub_good$snps_count2)+10),qbinom(binom[j],1:(max(sub_good$snps_count2)+10), expected), type = "l", col = "red")
+      }	
+    }
   }
   dev.off()
   return(returnList)
