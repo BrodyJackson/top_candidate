@@ -6,7 +6,6 @@
 #' @param quantiles the quantiles being tested
 #' @param binom the binomial cuts to test 
 #' @param orthologs data frame containing the one to one orthologs of the value being tested for the two species 
-#' @param ortho_in_both data frame containing the orthologs that are present in both the species being tests
 #' @param species_one_name the name of species one (that is being used as column title)
 #' @param species_two_name the name of species two (that is being used as column title)
 #' @param plotFileName the name of the pdf file you want to plot in, if NULL then top candidates will not be plotted, defaults to null
@@ -16,7 +15,7 @@
 #' @examples
 #' compare_top_candidatescompare_top_candidates(pine_outliers, spruce_outliers, the_quantiles, binom_cuts, oneToOne, ortho_in_both, "pine", "spruce", "top_candidates_compared.pdf")
 
-compare_top_candidates <- function(species_one_candidates = NULL ,species_two_candidates = NULL, the_quantiles, binom, orthologs, ortho_in_both, species_one_name = "pine", species_two_name = "spruce", plotFileName = NULL){
+compare_top_candidates <- function(species_one_candidates = NULL ,species_two_candidates = NULL, the_quantiles, binom, orthologs, species_one_name = "pine", species_two_name = "spruce", plotFileName = NULL){
   
   if(is.null(species_one_candidates) || is.null(species_two_candidates)){
     stop("need top candidate data of two species")
@@ -66,13 +65,13 @@ compare_top_candidates <- function(species_one_candidates = NULL ,species_two_ca
       sub_species_one <- sub_species_one[which (is.na(sub_species_one$spruce) == F),]
       sub_species_two <- sub_species_two[which (is.na(sub_species_two$pine) == F),]
       
-      column_location1 <- which( colnames(ortho_in_both)==species_one_name)
-      column_location2 <- which( colnames(ortho_in_both)==species_two_name)
+      column_location1 <- which( colnames(orthologs)==species_one_name)
+      column_location2 <- which( colnames(orthologs)==species_two_name)
       column_location_sub <- which( colnames(sub_species_one)==species_two_name)
       
       overlap[i,j] <- sum (sub_species_one[[column_location_sub]] %in% sub_species_two$names.snps_count2.) #how many genes are top candidates in both species?
-      num_species_one[i,j] <- sum (sub_species_one$names.snps_count2. %in% ortho_in_both[[column_location1]]) #how many genes are top candidates in pine?
-      num_species_two[i,j] <- sum (sub_species_two$names.snps_count2. %in% ortho_in_both[[column_location2]]) #how many genes are top candidates in spruce?
+      num_species_one[i,j] <- sum (sub_species_one$names.snps_count2. %in% orthologs[[column_location1]]) #how many genes are top candidates in pine?
+      num_species_two[i,j] <- sum (sub_species_two$names.snps_count2. %in% orthologs[[column_location2]]) #how many genes are top candidates in spruce?
       
       #merge together the species1 and species2 tables:
       sub_good_species_one_2 <- cbind (sub_good_species_one,binom_species_one)
@@ -85,7 +84,7 @@ compare_top_candidates <- function(species_one_candidates = NULL ,species_two_ca
         arrows (1,-1000,1,1000)
       }
       
-      number_genes <- nrow (ortho_in_both) #total number of genes that can be considered as having been tested 
+      number_genes <- nrow (orthologs) #total number of genes that can be considered as having been tested 
       number_species_one <- num_species_one[i,j]
       number_species_two <- num_species_two[i,j]
       number_overlap <- overlap[i,j]
