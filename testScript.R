@@ -18,10 +18,6 @@ spruce_tcontig <- data.frame(spruce[[2]])
 filtered_orthologs_pine <- ortholog_filtering(pine_tcontig, 3, "tcontig")
 filtered_orthologs_spruce <- ortholog_filtering(spruce_tcontig, 3, "tcontig")
 
-##Could try and implement this part as a seperate function? 
-int1 <- oneToOne[oneToOne$pine %in% filtered_orthologs_pine,]
-ortho_in_both <- int1[int1$spruce %in% filtered_orthologs_spruce,]
-
 ##allows changing of quantiles and binomial cuts to be used when finding top candidates for a species
 the_quantiles <- c (0.001,0.005,0.01,0.05)
 
