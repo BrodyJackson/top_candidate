@@ -179,9 +179,9 @@ print(probability)
 ```
 
 --- 
- <a name="Example Output"></a>
-# output
+ <a name="output"></a>
+# Example Output
 
 --- 
- <a name="Data Formatting Requirements"></a>
-# dataformat
+ <a name="dataformat"></a>
+# Data Format Requirements
