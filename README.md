@@ -182,6 +182,37 @@ print(probability)
  <a name="output"></a>
 # Example Output
 
+### find_top_candidates return values
+The find top candidate function will return a list of data frames. Each individual frames holds the top candidate values for one of the supplied quantiles. As an example, the demo would return the following column structure for each quantile, where rows would be the candidates found:
+
+names.snps_count | snps_count | outliers_count
+------------ | ------------- | -------------
+
+If a PDF name is supplied to the function then top candidates will be plotted into it. There will be one plot for each quantile to binomial cut comparison. These plots show the comparison between number of outliers and number of candidates found. As an example, one plot from the demo is shown below: 
+
+### compare_top_candidates return values
+The compare top candidate function will return a matrix with each column being one of the supplied binomial cuts, and each row being a quantile. Values in this matrix represent the probability of getting top candidates overlapping in both species for that quantile and binomial cut. As an example, part of the matrix returned in the demo is shown below:
+
+..| binomCut 0.99 | binomCut 0.999 | binomCut 0.9999 | binomCut 0.99999 | binomCut 0.999999 | binomCut 0.999999
+------------ | ------------- | ------------- | ------------- | ------------- | ------------- | -------------
+quantile 0.005 | 0.228551527 | 0.0623016237 | 0.034304899 | 1.0000000000 | 1.0000000000 | 1.0000000000
+quantile 0.01 | 0.294096908 | 0.0584371540 | 0.154139827 | 0.0753356064 | 1.000000000 | 1.000000000
+
+If a PDF name is supplied to the function then top candidate overlap between specie will be plotted into it. There will be one plot for each quantile to binomial cut comparison. These plots show the comparison between number of outliers to supplied cutoff values, and the candidates that are above this value in both species. As an example, one plot from the demo is shown below:
+
+
 --- 
  <a name="dataformat"></a>
 # Data Format Requirements
+ <a name="topcandreturn"></a>
+### requirements for find_top_candidates
+The find_top_candidate function must be supplied with species data containing at least two values for each entry. The first is an identifier for the entry being tested, such as tcontig name which is used in the demo data. Next, experimental results from at least one test condition must be provided (such as P-value). In the demo data the correlation between SNP and environment was found in various locations, so columns holding these results were used. An example of the basic structure needed in demo data is below: 
+
+tcontig (identifier) | environmental correlation p value
+------------ | -------------
+
+### requirements for compare_top_candidates
+The compare_top_candidate function must be supplied with results of the find_top_candidates function for two species, the format of which can be found [here](#topcandreturn).
+
+
+
