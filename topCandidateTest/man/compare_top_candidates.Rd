@@ -2,12 +2,12 @@
 % Please edit documentation in R/compare_top_candidates.R
 \name{compare_top_candidates}
 \alias{compare_top_candidates}
-\title{find_top_candidates}
+\title{compare_top_candidates}
 \usage{
 compare_top_candidates(species_one_candidates = NULL,
   species_two_candidates = NULL, the_quantiles, binom, orthologs,
-  ortho_in_both, species_one_name = "pine",
-  species_two_name = "spruce", plotFileName = NULL)
+  species_one_name = "pine", species_two_name = "spruce",
+  plotFileName = NULL)
 }
 \arguments{
 \item{species_one_candidates}{list containing data frames holding top candidate values for various quantiles of species one. Defaults to NULL}
@@ -17,8 +17,6 @@ compare_top_candidates(species_one_candidates = NULL,
 \item{binom}{the binomial cuts to test}
 
 \item{orthologs}{data frame containing the one to one orthologs of the value being tested for the two species}
-
-\item{ortho_in_both}{data frame containing the orthologs that are present in both the species being tests}
 
 \item{species_one_name}{the name of species one (that is being used as column title)}
 
@@ -32,7 +30,7 @@ compare_top_candidates(species_one_candidates = NULL,
 the probability of getting number_overlap or more top candidates
 }
 \description{
-find_top_candidates
+compare_top_candidates
 }
 \examples{
 compare_top_candidatescompare_top_candidates(pine_outliers, spruce_outliers, the_quantiles, binom_cuts, oneToOne, ortho_in_both, "pine", "spruce", "top_candidates_compared.pdf")

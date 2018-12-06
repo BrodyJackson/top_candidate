@@ -5,7 +5,7 @@
 \title{find_top_candidates}
 \usage{
 find_top_candidates(species_data = NULL, the_quantiles, binom,
-  candidateColumnName = NULL, testVariable = NULL,
+  candidateColumnName = NULL, testVariable = NULL, highOrLow = "low",
   plotFileName = NULL)
 }
 \arguments{
@@ -16,6 +16,8 @@ find_top_candidates(species_data = NULL, the_quantiles, binom,
 \item{candidateColumnName}{the name of the column containing all the candidates that will be tested. Defaults to NULL}
 
 \item{testVariable}{the column name holding the results for a certain test. For example, this could be the results for a certain environmental location}
+
+\item{highOrLow}{value to indicate if experimental results should be higher or lower than the quantile value being tested. For example, would be changed depending on if results are p-value or FST. Defaults to low}
 
 \item{plotFileName}{the name of the pdf file you want to plot in, if NULL then top candidates will not be plotted, defaults to null}
 
