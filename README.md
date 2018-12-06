@@ -190,6 +190,8 @@ names.snps_count | snps_count | outliers_count
 
 If a PDF name is supplied to the function then top candidates will be plotted into it. There will be one plot for each quantile to binomial cut comparison. These plots show the comparison between number of outliers and number of candidates found. As an example, one plot from the demo is shown below: 
 
+<img width="716" alt="screen shot 2018-12-06 at 3 35 02 pm" src="https://user-images.githubusercontent.com/18157295/49617680-d5999400-f972-11e8-95ed-535ac218cc9a.png">
+
 ### compare_top_candidates return values
 The compare top candidate function will return a matrix with each column being one of the supplied binomial cuts, and each row being a quantile. Values in this matrix represent the probability of getting top candidates overlapping in both species for that quantile and binomial cut. As an example, part of the matrix returned in the demo is shown below:
 
@@ -199,6 +201,8 @@ quantile 0.005 | 0.228551527 | 0.0623016237 | 0.034304899 | 1.0000000000 | 1.000
 quantile 0.01 | 0.294096908 | 0.0584371540 | 0.154139827 | 0.0753356064 | 1.000000000 | 1.000000000
 
 If a PDF name is supplied to the function then top candidate overlap between specie will be plotted into it. There will be one plot for each quantile to binomial cut comparison. These plots show the comparison between number of outliers to supplied cutoff values, and the candidates that are above this value in both species. As an example, one plot from the demo is shown below:
+
+<img width="466" alt="screen shot 2018-12-06 at 4 21 47 pm" src="https://user-images.githubusercontent.com/18157295/49617750-0d084080-f973-11e8-9f02-163539a02a57.png">
 
 
 --- 
