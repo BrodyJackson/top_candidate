@@ -29,8 +29,9 @@ The top candidate test is a method created by Dr. Sam Yeaman at the University o
 The topCandidateTest package can be downloaded directly from github by using the following R commands
 
 ```
-library(devtools)
-install_github('topCandidateTest', 'github_BrodyJackson')
+install.packages("devtools")
+library("devtools")
+install_github("BrodyJackson/top_candidate", subdir="topCandidateTest")
 ```
 
 ---
