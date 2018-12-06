@@ -14,6 +14,7 @@
    + [Find_top_candidates](#findcandidates)
    + [compare_top_candidates](#compare)
 4. [Demo usage](#demousage)
+5. [Example Output](#output)
 5. [Data format requirements](#dataformat)
 
 --- 
@@ -176,3 +177,11 @@ probability <- compare_top_candidates(pine_outliers, spruce_outliers, the_quanti
 
 print(probability)
 ```
+
+--- 
+ <a name="Example Output"></a>
+# output
+
+--- 
+ <a name="Data Formatting Requirements"></a>
+# dataformat
