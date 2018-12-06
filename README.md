@@ -21,7 +21,7 @@
  <a name="introduction"></a>
 # Introduction
 
-The top candidate test is a method created by Dr. Samuel Yeaman at the University of Calgary to isolate specific gene candidates from large sets of genomic data. Top candidates are selected by comparing the number of accurances to some measure of significance, then searching for those above an aribitrary outlier threshold. This tool was initially developed to find signatures of local adaptation, by finding outliers in the association between candidate density and phenotype-treatment corellation. In its original use the method identified putative locally adapted loci within species of Pine and Spruce trees. The correlation between various SNP's (phenotype) and environment (treatment) was compared to the density of each SNP, and outliers from this association were marked as top candidates. This package attempts to generalize the procedure, and supply useful methods for those wanting a similar way to parse candidates from their own experimental data. 
+The top candidate test is a method created by Dr. Sam Yeaman at the University of Calgary to isolate specific gene candidates from large sets of genomic data. Top candidates are selected by comparing the number of occurrences to some measure of significance, then searching for those above an aribitrary outlier threshold. This tool was initially developed to find signatures of local adaptation, by finding outliers in the association between candidate density and phenotype-treatment corellation. In its original use the method identified putative locally adapted loci within species of Pine and Spruce trees. The correlation between various SNP's (phenotype) and environment (treatment) was compared to the density of each SNP, and outliers from this association were marked as top candidates. This package attempts to generalize the procedure, and supply useful methods for those wanting a similar way to parse candidates from their own experimental data. 
 
 ---
 <a name="install"></a>
@@ -81,6 +81,8 @@ install_github('topCandidateTest', 'github_BrodyJackson')
      the name of the column containing all the candidates that will be tested. Defaults to NULL
   - `Parameter`: **testVariable** </br>
      the column name holding the results for a certain test. For example, this could be the results for a certain environmental location
+  - `Parameter`: **highOrLow** </br>
+     Value to indicate if experimental results should be higher or lower than the quantile value being tested. For example, would be changed depending on if results are p-value or FST. Defaults to low
   - `Parameter`: **plotFileName** </br>
      the name of the pdf file you want to plot in, if NULL then top candidates will not be plotted, defaults to null
   - `Return`: </br>
@@ -88,7 +90,7 @@ install_github('topCandidateTest', 'github_BrodyJackson')
   - `Keywords`: **topCandidate** 
   - `Examples`: 
       ```
-      find_top_candidates(pine, the_quantiles, binom_cuts, "tcontig", "MCMT", "pine_top_candidates.pdf")
+      find_top_candidates(pine, the_quantiles, binom_cuts, "tcontig", "MCMT", "low" , "pine_top_candidates.pdf")
       ```
 
 
@@ -106,8 +108,6 @@ install_github('topCandidateTest', 'github_BrodyJackson')
      the binomial cuts to test
   - `Parameter`: **orthologs** </br>
      data frame containing the one to one orthologs of the value being tested for the two species
-  - `Parameter`: **ortho_in_both** </br>
-     data frame containing the orthologs that are present in both the species being tests
   - `Parameter`: **species_one_name** </br>
      the name of species one (that is being used as column title)
    - `Parameter`: **species_two_name** </br>
@@ -119,7 +119,7 @@ install_github('topCandidateTest', 'github_BrodyJackson')
   - `Keywords`: **compare** 
   - `Examples`: 
     ```
-    compare_top_candidatescompare_top_candidates(pine_outliers, spruce_outliers, the_quantiles, binom_cuts, oneToOne, ortho_in_both, "pine", "spruce", "top_candidates_compared.pdf")
+    compare_top_candidatescompare_top_candidates(pine_outliers, spruce_outliers, the_quantiles, binom_cuts, oneToOne, "pine", "spruce", "top_candidates_compared.pdf")
     ```
 
 
@@ -153,11 +153,6 @@ We then filter the data we have about SNP's annotated to a gene, and get back on
 ```R
 filtered_orthologs_pine <- ortholog_filtering(pine_tcontig, 3, "tcontig")
 filtered_orthologs_spruce <- ortholog_filtering(spruce_tcontig, 3, "tcontig")
-```
-Orthologs that are present in the data tables of both species must then be found
-```R
-int1 <- oneToOne[oneToOne$pine %in% filtered_orthologs_pine,]
-ortho_in_both <- int1[int1$spruce %in% filtered_orthologs_spruce,]
 ```
 We can now select the quantiles and binomial cuts that our candidates should be tested with.
 ```R
