@@ -32,6 +32,8 @@ compare_top_candidates <- function(species_one_candidates = NULL ,species_two_ca
     pdf (plotFileName)
   }
   
+  probabilityVector <- vector()
+  
   for (i in 1:length (the_quantiles)){
     
     
@@ -72,31 +74,45 @@ compare_top_candidates <- function(species_one_candidates = NULL ,species_two_ca
       num_species_one[i,j] <- sum (sub_species_one$names.snps_count2. %in% ortho_in_both[[column_location1]]) #how many genes are top candidates in pine?
       num_species_two[i,j] <- sum (sub_species_two$names.snps_count2. %in% ortho_in_both[[column_location2]]) #how many genes are top candidates in spruce?
       
-      # par (mfcol = c (2,1))
-      # par (mar = c (5,5,5,5))
-      # plot (sub_good_species_one$snps_count2,sub_good_species_one$outliers_count2, xlab = "number of SNPs", ylab = "number of outliers", main = paste ("quantile = ", the_quantiles[i],"  binom_cut = ",binom[j]),  cex = 0.5)
-      # points (1:(max(sub_good_species_one$snps_count2)+10),qbinom(binom[j],1:(max(sub_good_species_one$snps_count2)+10), expect1_species_one), type = "l", col = "red")
-      
-      #merge together the pine and spruce tables:
+      #merge together the species1 and species2 tables:
       sub_good_species_one_2 <- cbind (sub_good_species_one,binom_species_one)
       sub_good_species_two_2 <- cbind (sub_good_species_two,binom_species_two)
+      if(!is.null(plotFileName)){
+        merg1 <- merge (sub_good_species_one_2,sub_good_species_two_2,by.x = "names.snps_count2.",by.y = species_one_name)
+        par (mar = c (5,5,5,5))
+        plot ((merg1$outliers_count2.x / merg1$binom_species_one),(merg1$outliers_count2.y / merg1$binom_species_two), xlab = species_one_name ,ylab = species_two_name, cex = 0.5,xlim = c (0,5),ylim = c (0,5), main = "Number of outliers / cutoff")
+        arrows (-1000,1,1000,1)
+        arrows (1,-1000,1,1000)
+      }
       
-      #values not changed to species1/2 properly yet
-      merg1 <- merge (sub_good_species_one_2,sub_good_species_two_2,by.x = "names.snps_count2.",by.y = species_one_name)
-      par (mar = c (5,5,5,5))
-      plot ((merg1$outliers_count2.x / merg1$binom_species_one),(merg1$outliers_count2.y / merg1$binom_species_two), xlab = species_one_name ,ylab = species_two_name, cex = 0.5,xlim = c (0,5),ylim = c (0,5), main = "Number of outliers / cutoff")
-      arrows (-1000,1,1000,1)
-      arrows (1,-1000,1,1000)
+      number_genes <- nrow (ortho_in_both) #total number of genes that can be considered as having been tested 
+      number_species_one <- num_species_one[i,j]
+      number_species_two <- num_species_two[i,j]
+      number_overlap <- overlap[i,j]
+      
+      value_to_add <- sum(dhyper((number_overlap:number_species_one),number_species_one,(number_genes - number_species_one),number_species_two))
+      probabilityVector <- c(probabilityVector, value_to_add)
+      
     }	
   }
   dev.off()
   
-  number_genes <- nrow (ortho_in_both) #total number of genes that can be considered as having been tested 
-  number_species_one <- num_species_one[3,3]
-  number_species_two <- num_species_two[3,3]
-  number_overlap <- overlap[3,3]
+  rowNames <- NULL
+  for (i in 1:length (the_quantiles)){
+    stringValue <- paste("quantile", toString(the_quantiles[i]), sep = " ")
+    rowNames <- c(rowNames, stringValue)
+  }
+  print(rowNames)
+  columnNames <- NULL
+  for (i in 1:length (binom)){
+    stringValue <- paste("binomCut", toString(binom[i]), sep = " ")  
+    columnNames <- c(columnNames, stringValue)
+  }
+  print(columnNames)
   
+  # create a matrix whih holds the probabilities of getting number_overlap or more top candidates for each quantile (row) compared to binomial cut(columns)
+  return_probabilities <- matrix(probabilityVector, nrow = length(the_quantiles), ncol= length(binom), byrow = TRUE)
+  dimnames(return_probabilities) = list(rowNames, columnNames)
   #calculate the probability of getting number_overlap or more
-  returnValue <- sum(dhyper((number_overlap:number_species_one),number_species_one,(number_genes - number_species_one),number_species_two))
-  return(returnValue) 
+  return(return_probabilities) 
 }

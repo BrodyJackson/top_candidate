@@ -6,6 +6,7 @@
 #' @param binom the binomial cuts to test 
 #' @param candidateColumnName the name of the column containing all the candidates that will be tested. Defaults to NULL
 #' @param testVariable the column name holding the results for a certain test. For example, this could be the results for a certain environmental location
+#' @param highOrLow value to indicate if experimental results should be higher or lower than the quantile value being tested. For example, would be changed depending on if results are p-value or FST. Defaults to low
 #' @param plotFileName the name of the pdf file you want to plot in, if NULL then top candidates will not be plotted, defaults to null
 #' @return returns a list containing data frames holding the top candidate results for each quantile 
 #' @keywords topcandidate
@@ -13,7 +14,7 @@
 #' @examples
 #' find_top_candidates(pine, the_quantiles, binom_cuts, "tcontig", "MCMT", "pine_top_candidates.pdf")
 
-find_top_candidates <- function(species_data = NULL ,the_quantiles, binom, candidateColumnName = NULL, testVariable = NULL, plotFileName = NULL){
+find_top_candidates <- function(species_data = NULL ,the_quantiles, binom, candidateColumnName = NULL, testVariable = NULL, highOrLow = "low", plotFileName = NULL){
   
   if(is.null(candidateColumnName)){
     stop("Column name of candidates must be supplied")
@@ -23,6 +24,9 @@ find_top_candidates <- function(species_data = NULL ,the_quantiles, binom, candi
   }
   if(is.null(testVariable)){
     stop("test variable must be provided")
+  }
+  if((highOrLow != "low") && (highOrLow != "high")){
+    stop("Value of highOrLow must be supplied as either 'high' or 'low' for testing experimental condition")
   }
   
   returnList <- list()
@@ -39,17 +43,20 @@ find_top_candidates <- function(species_data = NULL ,the_quantiles, binom, candi
     
     the_quantile <- the_quantiles[i]
     
-    #calculate the quantile to call outliers over all environmental variables. This somewhat arbitrary choice allows some environmental variables to have more outliers than others, based on the relative strength of the p-values
-    quantile1 <- quantile (species_data[[1]][,33:54], the_quantile,na.rm = T)	#STEP2
+    the_i <- which (colnames (species_data[[2]]) == testVariable)
     
+    #calculate the quantile to call outliers over all environmental variables. Used only on the testColumn name supplied
+    quantile1 <- quantile (species_data[[1]][[the_i]], the_quantile,na.rm = T)	#STEP2
     
-    the_i <- which (colnames (species_data[[2]]) == testVariable) 
-    
-    #here is where change would be made depending on if low or high indicates a good value
-    outliers <- species_data[[2]][,the_i] < quantile1
-    snps <- species_data[[2]][,the_i] < 1000000  ## arbitrary, just allows using the same code as outliers
-    
-    
+    # specify weather we are looking for values above or beloe the quantile 
+    if(highOrLow == "low"){
+      outliers <- species_data[[2]][,the_i] < quantile1
+      snps <- species_data[[2]][,the_i] < 1000000  ## arbitrary, just allows using the same code as outliers  
+    }
+    else if(highOrLow == "high"){
+      outliers <- species_data[[2]][,the_i] > quantile1
+      snps <- species_data[[2]][,the_i] < 1000000  
+    }
     outliers_count <- tapply (outliers, list(as.character (species_data[[2]]$tcontig)),sum, na.rm = T)  #count the number of outliers per gene
     outliers_count2 <- outliers_count[outliers_count >=1] ## only those that have at least one outlier
     

@@ -27,10 +27,12 @@ the_quantiles <- c (0.001,0.005,0.01,0.05)
 
 binom_cuts <- c(0.99,0.999,0.9999,0.99999,0.999999,0.9999999,0.99999999,0.999999999)
 
-pine_outliers <- find_top_candidates(pine, the_quantiles, binom_cuts, "tcontig", "MCMT", "pine_top_candidates.pdf")
+pine_outliers <- find_top_candidates(pine, the_quantiles, binom_cuts, "tcontig", "MCMT", "low", "pine_top_candidates.pdf")
 
-spruce_outliers <- find_top_candidates(spruce, the_quantiles, binom_cuts, "tcontig", "MCMT", "spruce_top_candidates.pdf")
+spruce_outliers <- find_top_candidates(spruce, the_quantiles, binom_cuts, "tcontig", "MCMT", "low", "spruce_top_candidates.pdf")
 
+# compare top candidates will return a matrix holding the probability of getting top candidates overlapping in both species for each quantile and binomial cut comparison
+# the quantiles are rows while the binomial cuts are columns 
 probability <- compare_top_candidates(pine_outliers, spruce_outliers, the_quantiles, binom_cuts, oneToOne, ortho_in_both, "pine", "spruce", "top_candidates_compared.pdf")
 #the probability of getting a certain number of top candidates overlapping in both species
 print(probability)
