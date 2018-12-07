@@ -178,7 +178,7 @@ print(probability)
  <a name="output"></a>
 # Example Output
 
-### find_top_candidates return values
+### find_top_candidates return values <a name="topcandreturn"></a>
 The find top candidate function will return a list of data frames. Each individual frames holds the top candidate values for one of the supplied quantiles. As an example, the demo would return the following column structure for each quantile, where rows would be the candidates found:
 
 names.snps_count | snps_count | outliers_count
