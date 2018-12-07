@@ -21,7 +21,7 @@
  <a name="introduction"></a>
 # Introduction
 
-The top candidate test is a method created by Dr. Sam Yeaman at the University of Calgary to isolate specific gene candidates from large sets of genomic data. Top candidates are selected by comparing the number of occurrences to some measure of significance, then searching for those above an aribitrary outlier threshold. This tool was initially developed to find signatures of local adaptation, by finding outliers in the association between candidate density and phenotype-treatment corellation. In its original use the method identified putative locally adapted loci within species of Pine and Spruce trees. The correlation between various SNP's (phenotype) and environment (treatment) was compared to the density of each SNP, and outliers from this association were marked as top candidates. This package attempts to generalize the procedure, and supply useful methods for those wanting a similar way to parse candidates from their own experimental data. 
+The top candidate test is a method created by Dr. Sam Yeaman at the University of Calgary to isolate specific gene candidates from large sets of genomic data. Top candidates are selected by comparing the number of occurrences to some measure of significance, then searching for those above an arbitrary outlier threshold. This tool was initially developed to find signatures of local adaptation, by finding outliers in the association between candidate density and phenotype-treatment correlation. In its original use, the method identified putative locally adapted loci within species of pine and spruce trees. The correlation between various SNP's (phenotype) and environment (treatment) was compared to the density of each SNP, and outliers from this association were marked as top candidates. This package attempts to generalize the procedure, and supply useful methods for those wanting a similar way to parse candidates from their own experimental data. 
 
 ---
 <a name="install"></a>
@@ -60,7 +60,7 @@ install_github("BrodyJackson/top_candidate", subdir="topCandidateTest")
    - `Parameter`: **species_data** </br>
      data to evaluate. For example, this could be the contigs present in a species. Defaults to NULL
   - `Parameter`: **minimum** </br>
-     the minimum number of occurences a value needs to have in this data to be included. For example, number of SNP's needed for a gene. Defaults to 3
+     the minimum number of occurrences a value needs to have in this data to be included. For example, number of SNP's needed for a gene. Defaults to 3
   - `Parameter`: **columnName** </br>
      the column name which has the values to evaluate. For example, this could be the column of contigs. Defaults to NULL
   - `Keywords`: **ortholog** 
@@ -73,7 +73,7 @@ install_github("BrodyJackson/top_candidate", subdir="topCandidateTest")
 ###### Function to filter data for species entered
   -  `Description`: </br>
    - `Parameter`: **species** </br>
-     data list containing overall data in first position and orthologs data to evaluate in second. These values are previously found using experimental_data_import method. Defaults to NULL
+     data list containing overall data in first position and orthologs data to evaluate in second. These values are previously found using the experimental_data_import method. Defaults to NULL
   - `Parameter`: **quantiles** </br>
      the quantiles being tested
   - `Parameter`: **binom** </br>
@@ -140,7 +140,7 @@ Next we want to read in the original data between pine and spruce orthologs, inc
 allOrthologs <- read.table ("all_orthologs_pine_spruce.txt",T)
 oneToOne  <- read.table ("one_to_one_orthologs.txt", T)
 ```
-Then we will use the experimental_data_import function on both species which returns a data frame that we can use to access both the overal experimental results from the data, as well as the results for only SNP's that are annoated to a gene
+Then we will use the experimental_data_import function on both species which returns a data frame that we can use to access both the overall experimental results from the data, as well as the results for only SNP's that are annotated to a gene
 ```R
 pine <- experimental_data_import("all_pine_data_pvalues.txt", TRUE, "tcontig")
 overall_pine <- data.frame(pine[[1]])
@@ -196,7 +196,7 @@ The compare top candidate function will return a matrix with each column being o
 quantile 0.005 | 0.228551527 | 0.0623016237 | 0.034304899 | 1.0000000000 | 1.0000000000 | 1.0000000000
 quantile 0.01 | 0.294096908 | 0.0584371540 | 0.154139827 | 0.0753356064 | 1.000000000 | 1.000000000
 
-If a PDF name is supplied to the function then top candidate overlap between specie will be plotted into it. There will be one plot for each quantile to binomial cut comparison. These plots show the comparison between number of outliers to supplied cutoff values, and the candidates that are above this value in both species. As an example, one plot from the demo is shown below:
+If a PDF name is supplied to the function then top candidate overlap between species will be plotted into it. There will be one plot for each quantile to binomial cut comparison. These plots show the comparison between number of outliers to supplied cutoff values, and the candidates that are above this value in both species. As an example, one plot from the demo is shown below:
 
 <img width="466" alt="screen shot 2018-12-06 at 4 21 47 pm" src="https://user-images.githubusercontent.com/18157295/49617750-0d084080-f973-11e8-9f02-163539a02a57.png">
 
