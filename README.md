@@ -15,7 +15,8 @@
    + [compare_top_candidates](#compare)
 4. [Demo usage](#demousage)
 5. [Example Output](#output)
-5. [Data format requirements](#dataformat)
+6. [Data format requirements](#dataformat)
+7. [Sample data download](#sample)
 
 --- 
  <a name="introduction"></a>
@@ -213,6 +214,12 @@ tcontig (identifier) | environmental correlation p value
 
 ### requirements for compare_top_candidates
 The compare_top_candidate function must be supplied with results of the find_top_candidates function for two species, the format of which can be found [here](#topcandreturn).
+
+--- 
+ <a name="sample"></a>
+# Sample Data Download
+The sample data used in the test script file is publicly available on Dryad at the following link:
+- https://datadryad.org/handle/10255/dryad.123669
 
 
 
